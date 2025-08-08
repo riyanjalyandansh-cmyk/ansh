@@ -111,10 +111,14 @@
 
     /* Category bars */
     .cat{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px; margin:18px 0}
-    .dot{width:14px; height:14px; border-radius:50%}
+    .dot{width:18px; height:18px; border-radius:50%; border:1px solid var(--border-strong); box-shadow:inset 0 0 8px rgba(159,99,255,.25); transition:transform .4s ease, opacity .35s ease}
     .track{height:12px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid var(--border); position:relative; overflow:hidden}
     .fill{position:absolute; inset:0 auto 0 0; width:0%; border-radius:inherit; background:linear-gradient(90deg, var(--purple-2), var(--magenta), var(--orange))}
     .cat small{color:#bfb8d4}
+    .gicon{position:absolute; right:-9px; top:50%; transform:translateY(-50%) scale(.6); opacity:0; width:18px; height:18px; pointer-events:none; filter:drop-shadow(0 2px 8px rgba(165,92,255,.45)); transition:transform .5s cubic-bezier(.2,.9,.2,1), opacity .35s ease}
+    .gicon svg{width:18px; height:18px}
+    .cat.active .dot{opacity:0; transform:scale(.5)}
+    .cat.active .gicon.show{opacity:1; transform:translateY(-50%) scale(1)}
 
     /* CTA */
     .cta{text-align:center}
@@ -126,12 +130,6 @@
       transition: transform .15s ease, box-shadow .2s ease;
     }
     .btn:hover{transform:translateY(-2px); box-shadow: 0 0 0 6px rgba(149, 84, 255, .15), var(--glow)}
-
-    /* CTA card + button polish */
-    .cta-card{display:flex; flex-direction:column; align-items:center; gap:16px; padding:32px 24px; border:1px solid var(--border); border-radius:var(--radius-xl); background:rgba(255,255,255,.03); backdrop-filter:blur(8px) saturate(140%); box-shadow:var(--glow); overflow:hidden}
-    .cta .btn{border:0; background-clip:padding-box; position:relative; isolation:isolate; overflow:hidden}
-    .cta .btn::before{content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
-    .cta .btn::after{content:""; position:absolute; inset:0; border-radius:inherit; background:radial-gradient(120% 60% at 100% 0%, rgba(255,255,255,.18), transparent 60%); mix-blend-mode:screen; opacity:.6}
 
     .btn-sm{ padding:10px 16px; font-weight:700; font-size:14px; border-radius:14px }
     .nav-cta{ background:linear-gradient(90deg, var(--purple-2), var(--magenta)); color:white; text-decoration:none; border:1px solid var(--border-strong); box-shadow: var(--glow); white-space:nowrap }
@@ -165,12 +163,6 @@
     }
     @media (max-width: 580px){
       .stories{grid-template-columns:1fr}
-      .bar{width:26px}
-      .nav-cta{display:inline-block}
-      .nav-links{display:none}
-      .cta .btn{width:100%; max-width:520px}
-      .cta-card{padding:24px 16px}
-    }
       .bar{width:26px}
       .nav-cta{display:inline-block}
       .nav-links{display:none}
@@ -260,22 +252,54 @@
           <h3 class="card-title">Genres</h3>
           <div class="cat">
             <div class="dot" style="background:#67b2ff"></div>
-            <div class="track"><div class="fill" style="--to:78%"></div></div>
+            <div class="track"><div class="fill" style="--to:78%">
+              <span class="gicon kids">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#cdbaff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M8.5 10.5h0"/>
+                  <path d="M15.5 10.5h0"/>
+                  <path d="M8.5 14c1.2 1 2.6 1.5 3.5 1.5s2.3-.5 3.5-1.5"/>
+                </svg>
+              </span>
+            </div></div>
             <small>Kids</small>
           </div>
           <div class="cat">
             <div class="dot" style="background:#8be3ff"></div>
-            <div class="track"><div class="fill" style="--to:58%"></div></div>
+            <div class="track"><div class="fill" style="--to:58%">
+              <span class="gicon doc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#cdbaff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="6" width="16" height="12" rx="2"/>
+                  <path d="M8 6v12M16 6v12M4 10h16M4 14h16"/>
+                </svg>
+              </span>
+            </div></div>
             <small>Documentary</small>
           </div>
           <div class="cat">
             <div class="dot" style="background:#b388ff"></div>
-            <div class="track"><div class="fill" style="--to:66%"></div></div>
+            <div class="track"><div class="fill" style="--to:66%">
+              <span class="gicon game">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#cdbaff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="11" width="12" height="6" rx="3"/>
+                  <path d="M9 14h2M10 13v2"/>
+                  <circle cx="15.5" cy="13.5" r="0.9"/>
+                  <circle cx="17.3" cy="15.3" r="0.9"/>
+                </svg>
+              </span>
+            </div></div>
             <small>Gaming</small>
           </div>
           <div class="cat">
             <div class="dot" style="background:#ffb24d"></div>
-            <div class="track"><div class="fill" style="--to:92%"></div></div>
+            <div class="track"><div class="fill" style="--to:92%">
+              <span class="gicon trend">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#cdbaff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 16l6-6 4 4 6-6"/>
+                  <path d="M18 8h4v4"/>
+                </svg>
+              </span>
+            </div></div>
             <small>Trending</small>
           </div>
         </div>
@@ -284,10 +308,8 @@
 
     <!-- CTA -->
     <section class="cta">
-      <div class="cta-card">
-        <h2>Elevate Your Brand</h2>
-        <a class="btn" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20N8Wealth%2C%0AI'm%20interested%20in%20collaborating.%20Please%20reach%20out!">LET'S COLLABORATE</a>
-      </div>
+      <h2>Elevate Your Brand</h2>
+      <a class="btn" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20N8Wealth%2C%0AI'm%20interested%20in%20collaborating.%20Please%20reach%20out!">LET'S COLLABORATE</a>
     </section>
 
     <!-- BRAND COLLABORATION -->
@@ -425,7 +447,11 @@
             setTimeout(()=>{
               el.style.transition = 'width 900ms ease';
               el.style.width = to;
-            }, i*100);
+              const cat = el.closest('.cat');
+              if(cat) cat.classList.add('active');
+              const icon = el.querySelector('.gicon');
+              setTimeout(()=>{ if(icon) icon.classList.add('show'); }, 120);
+            }, i*120);
           });
           io2.disconnect();
         }
