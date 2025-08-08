@@ -53,12 +53,7 @@
       padding:14px 18px; box-shadow: var(--glow);
     }
     .brand{display:flex; align-items:center; gap:12px; font-weight:700}
-    .phone{
-      width:36px; height:36px; border-radius:50%;
-      display:grid; place-items:center;
-      background:radial-gradient(60% 60% at 30% 30%, #2a1a55, #140c29);
-      border:1px solid var(--border-strong);
-      box-shadow:inset 0 0 12px rgba(159,99,255,.25);
+    .phone{\n      position:relative;\n      width:36px; height:36px; border-radius:50%;\n      display:grid; place-items:center;\n      background:radial-gradient(60% 60% at 30% 30%, #2a1a55, #140c29);\n      border:1px solid var(--border-strong);\n      box-shadow:0 0 0 8px rgba(149,84,255,.08), inset 0 0 12px rgba(159,99,255,.25);
     }
     .nav-links{display:flex; gap:28px; font-weight:600}
     .nav-links a{color:var(--text); text-decoration:none; opacity:.9}
@@ -134,7 +129,7 @@
     .feature p{margin:0; color:#d8d2ea; line-height:1.6}
 
     /* Success stories */
-    .stories{display:grid; grid-template-columns: repeat(4, 1fr); gap:22px}
+    .stories{display:grid; grid-template-columns: repeat(3, 1fr); gap:22px}
     .story{padding:22px; background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:18px; min-height:170px}
     .story h5{margin:0 0 8px; font-size:18px}
     .story p{margin:0; color:#d6d0e8; line-height:1.6}
@@ -230,16 +225,10 @@
           <div id="bars" class="bar-chart" aria-label="Monthly bar chart">
             <!-- Edit data-heights in JS below to match exact numbers -->
           </div>
-          <div id="bar-labels" style="display:flex; justify-content:space-between; padding:0 4px; margin-top:10px;">
-            <span class="bar-label">Nov</span>
-            <span class="bar-label">Dec</span>
-            <span class="bar-label">Jan</span>
-            <span class="bar-label">Feb</span>
-            <span class="bar-label">Mar</span>
-            <span class="bar-label">Apr</span>
-          </div>
+          
         </div>
         <div class="card">
+          <h4 class="subtle" style="margin:4px 0 12px">Genres</h4>
           <div class="cat">
             <div class="dot" style="background:#67b2ff"></div>
             <div class="track"><div class="fill" style="--to:78%"></div></div>
@@ -267,7 +256,7 @@
     <!-- CTA -->
     <section class="cta">
       <h2>Elevate Your Brand</h2>
-      <a class="btn" href="#collab">LET'S COLLABORATE</a>
+      <a class="btn" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20N8Wealth%2C%0AI'm%20interested%20in%20collaborating.%20Please%20reach%20out!">LET'S COLLABORATE</a>
     </section>
 
     <!-- BRAND COLLABORATION -->
@@ -323,10 +312,6 @@
           <p>Lorem ipsum dolor amet, consectetur adipiscing elit.</p>
         </article>
         <article class="story">
-          <h5>Success Story 1</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </article>
-        <article class="story">
           <h5>Success Story 2</h5>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </article>
@@ -362,10 +347,11 @@
     // Bars (Monthly Viewership)
     // ----------------------
     const data = [30, 60, 95, 130, 160, 190]; // change these to match your values
+    const labels = ['Nov','Dec','Jan','Feb','Mar','Apr'];
     const max = Math.max(...data);
     const barsEl = document.getElementById('bars');
 
-    data.forEach((h)=>{
+    data.forEach((h,i)=>{
       const wrap = document.createElement('div');
       wrap.className = 'bar-wrap';
       const bar = document.createElement('div');
@@ -373,6 +359,10 @@
       bar.style.height = '0px';
       bar.dataset.target = (h / max * 200 + 30).toFixed(0); // min height pad
       wrap.appendChild(bar);
+      const lab = document.createElement('span');
+      lab.className = 'bar-label';
+      lab.textContent = labels[i];
+      wrap.appendChild(lab);
       barsEl.appendChild(wrap);
     });
 
