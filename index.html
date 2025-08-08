@@ -108,12 +108,7 @@
     .bar{width:42px; border-radius:12px; background: linear-gradient(180deg, #c294ff, #6a2cff); box-shadow: inset 0 -6px 18px rgba(0,0,0,.25), 0 8px 28px rgba(119,73,255,.25); transform-origin: bottom}
     .bar-label{font-size:13px; color:#cfc9e6; text-align:center; margin-top:8px}
     .bar-wrap{display:flex; flex-direction:column; align-items:center; flex:1; position:relative}
-    .bar-value{position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; padding:3px 6px; border-radius:8px; background:rgba(255,255,255,.06); border:1px solid var(--border); white-space:nowrap}
-    
-    
-    
-    
-    
+    .bar-value{position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; padding:3px 6px; border-radius:8px; background:rgba(255,255,255,.06); border:1px solid var(--border); white-space:nowrap; color:#eae6ff}
 
     /* Category bars */
     .cat{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px; margin:18px 0}
@@ -121,6 +116,8 @@
     .track{height:12px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid var(--border); position:relative; overflow:hidden}
     .fill{position:absolute; inset:0 auto 0 0; width:0%; border-radius:inherit; background:linear-gradient(90deg, var(--purple-2), var(--magenta), var(--orange))}
     .cat small{color:#bfb8d4}
+    .pct{position:absolute; right:32px; top:50%; transform:translateY(-50%); font-size:12px; font-weight:700; color:#fff; padding:2px 6px; border-radius:10px; background:rgba(0,0,0,.35); border:1px solid var(--border-strong); box-shadow:0 2px 8px rgba(0,0,0,.25); opacity:0; transition:opacity .3s ease}
+    .cat.active .pct{opacity:1}
     .gicon{position:absolute; right:-10px; top:50%; transform:translateY(-50%) scale(.86); opacity:0; width:26px; height:26px; display:grid; place-items:center; pointer-events:none; background:#171129; border:1px solid rgba(255,255,255,.18); border-radius:50%; box-shadow:0 0 0 2px rgba(149,84,255,.18), 0 6px 12px rgba(0,0,0,.35); transition:transform .45s cubic-bezier(.2,.9,.2,1), opacity .35s ease; will-change:transform; mix-blend-mode:normal; clip-path:circle(50%)}
     .gicon::after{content:""; position:absolute; inset:-2px; border-radius:50%; background:linear-gradient(90deg, var(--purple-2), var(--magenta), var(--orange)); -webkit-mask: radial-gradient(circle at center, transparent 65%, #000 66%); mask: radial-gradient(circle at center, transparent 65%, #000 66%); opacity:.9}
     .gicon svg{width:14px; height:14px}
@@ -265,16 +262,10 @@
           <h3 class="card-title">Genres</h3>
           <div class="cat">
             <div class="dot" style="background:#67b2ff"></div>
-            <div class="track"><div class="fill" style="--to:78%">
-              <span class="gicon kids">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#cdbaff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="9"/>
-                  <path d="M8.5 10.5h0"/>
-                  <path d="M15.5 10.5h0"/>
-                  <path d="M8.5 14c1.2 1 2.6 1.5 3.5 1.5s2.3-.5 3.5-1.5"/>
-                </svg>
-              </span>
-            </div></div>
+            <div class="track"><div class="fill" style=\"--to:25%\">
+              <span class=\"gicon kids\">$1<\/span>
+              <span class=\"pct\">25%<\/span>
+            <\/div><\/div>
             <small>Kids</small>
           </div>
           <div class="cat">
@@ -412,24 +403,22 @@
     // ----------------------
     // Bars (Monthly Viewership)
     // ----------------------
-    const months = ['Nov','Dec','Jan','Feb','Mar','Apr'];
-    const viewsM = [40, 70, 110, 150, 180, 200]; // in millions
+    const months = ['May','Jun','Jul','Aug'];
+    const viewsM = [197, 200, 230, 400];
+    const max = Math.max(...viewsM);
     const barsEl = document.getElementById('bars');
-    
 
-    // Build bars
-    barsEl.innerHTML = '';
     months.forEach((m,i)=>{
       const wrap = document.createElement('div');
       wrap.className = 'bar-wrap';
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = '0px';
-      bar.dataset.index = i;
+      bar.dataset.target = (viewsM[i] / max * 200 + 30).toFixed(0);
       wrap.appendChild(bar);
       const val = document.createElement('span');
       val.className = 'bar-value';
-      val.textContent = viewsM[i] + 'M';
+      val.textContent = (i === months.length - 1 ? viewsM[i] + 'M+' : viewsM[i] + 'M');
       wrap.appendChild(val);
       const lab = document.createElement('span');
       lab.className = 'bar-label';
@@ -438,35 +427,22 @@
       barsEl.appendChild(wrap);
     });
 
-    
-
-    function layoutBars(animate){
-      const pxMax = 200; const minPad = 30;
-      const maxVal = Math.max(...viewsM);
-      document.querySelectorAll('.bar').forEach(el=>{
-        const i = +el.dataset.index;
-        const ratio = Math.min(viewsM[i] / maxVal, 1);
-        const target = (ratio * pxMax + minPad);
-        if(animate) el.style.transition = 'height 700ms cubic-bezier(.2,.9,.2,1)';
-        el.style.height = target + 'px';
-        const valEl = el.parentElement.querySelector('.bar-value');
-        valEl.textContent = viewsM[i] + 'M';
-      });
-    });
-    }
-
-    // Animate on view
+    // Animate bars on view
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
-          layoutBars(true);
+          document.querySelectorAll('.bar').forEach((el, i)=>{
+            setTimeout(()=>{
+              el.style.transition = 'height 700ms cubic-bezier(.2,.9,.2,1)';
+              el.style.height = el.dataset.target + 'px';
+            }, i*80);
+          });
           io.disconnect();
         }
       });
     }, { threshold:.35 });
     io.observe(barsEl);
 
-    
     // ----------------------
     // Category progress bars
     // ----------------------
