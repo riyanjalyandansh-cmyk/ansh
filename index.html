@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>N8Wealth — Where Content Becomes Culture</title>
+  <title>Razebait — Where Content Becomes Culture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -34,9 +34,13 @@
     html,body{height:100%}
     body{
       margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text); background: radial-gradient(1200px 700px at 20% 0%, #1b1231 0%, transparent 60%),
-                         radial-gradient(1000px 600px at 95% 10%, #24124a 0%, transparent 60%),
-                         linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      color:var(--text); background:
+      radial-gradient(1200px 700px at 20% -10%, #2a175a 0%, transparent 60%),
+      radial-gradient(900px 500px at 90% 0%, #31145f 0%, transparent 60%),
+      radial-gradient(800px 600px at 50% 100%, #1a0f33 0%, transparent 60%),
+      linear-gradient(180deg, #0b0714 0%, #0e0a1c 60%, #0a0816 100%);
+      background-attachment: fixed;
+      background-color:#0b0714;
       overflow-x:hidden;
     }
     .container{width:min(1120px, 92%); margin:0 auto}
@@ -53,7 +57,13 @@
       padding:14px 18px; box-shadow: var(--glow);
     }
     .brand{display:flex; align-items:center; gap:12px; font-weight:700}
-    .phone{\n      position:relative;\n      width:36px; height:36px; border-radius:50%;\n      display:grid; place-items:center;\n      background:radial-gradient(60% 60% at 30% 30%, #2a1a55, #140c29);\n      border:1px solid var(--border-strong);\n      box-shadow:0 0 0 8px rgba(149,84,255,.08), inset 0 0 12px rgba(159,99,255,.25);
+    .phone{
+      position:relative;
+      width:36px; height:36px; border-radius:50%;
+      display:grid; place-items:center;
+      background:radial-gradient(60% 60% at 30% 30%, #2a1a55, #140c29);
+      border:1px solid var(--border-strong);
+      box-shadow:0 0 0 8px rgba(149,84,255,.08), inset 0 0 12px rgba(159,99,255,.25);
     }
     .nav-links{display:flex; gap:28px; font-weight:600}
     .nav-links a{color:var(--text); text-decoration:none; opacity:.9}
@@ -94,10 +104,10 @@
     /* Monthly Viewership */
     .charts{display:grid; grid-template-columns: 1.1fr .9fr; gap:34px}
     .card{background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:var(--radius-xl); padding:22px}
-    .bar-chart{display:flex; align-items:flex-end; gap:22px; height:220px; padding:16px 8px 6px; position:relative}
+    .bar-chart{display:flex; align-items:flex-end; justify-content:space-between; gap:0; height:220px; padding:16px 8px 6px; position:relative}
     .bar{width:42px; border-radius:12px; background: linear-gradient(180deg, #c294ff, #6a2cff); box-shadow: inset 0 -6px 18px rgba(0,0,0,.25), 0 8px 28px rgba(119,73,255,.25); transform-origin: bottom}
     .bar-label{font-size:13px; color:#cfc9e6; text-align:center; margin-top:8px}
-    .bar-wrap{display:flex; flex-direction:column; align-items:center}
+    .bar-wrap{display:flex; flex-direction:column; align-items:center; flex:1}
 
     /* Category bars */
     .cat{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px; margin:18px 0}
@@ -116,6 +126,10 @@
       transition: transform .15s ease, box-shadow .2s ease;
     }
     .btn:hover{transform:translateY(-2px); box-shadow: 0 0 0 6px rgba(149, 84, 255, .15), var(--glow)}
+
+    .btn-sm{ padding:10px 16px; font-weight:700; font-size:14px; border-radius:14px }
+    .nav-cta{ background:linear-gradient(90deg, var(--purple-2), var(--magenta)); color:white; text-decoration:none; border:1px solid var(--border-strong); box-shadow: var(--glow); white-space:nowrap }
+    .card-title{font-size:28px; font-weight:800; letter-spacing:-.02em; margin:4px 0 12px}
 
     /* Features grid */
     .features{display:grid; grid-template-columns: repeat(3, 1fr); gap:22px}
@@ -146,6 +160,9 @@
     @media (max-width: 580px){
       .stories{grid-template-columns:1fr}
       .bar{width:30px}
+      .nav-cta{display:inline-block}
+    }
+      .bar{width:30px}
       .nav-links{display:none}
     }
   </style>
@@ -162,13 +179,9 @@
               <path d="M6.6 3.5l2.1-.9c.6-.2 1.2.1 1.5.7l1.3 3.2c.2.5.1 1-.2 1.4l-1.5 1.7c.9 1.7 2.3 3.1 4 4l1.7-1.5c.4-.3.9-.4 1.4-.2l3.2 1.3c.6.3.9.9.7 1.5l-.9 2.1c-.3.7-1 1.1-1.8 1-3.8-.5-7.2-2.3-9.9-5s-4.5-6.1-5-9.9c-.1-.8.3-1.5 1-1.8z" stroke="#cdbaff" stroke-width="1.4"/>
             </svg>
           </div>
-          <span>N8Wealth</span>
+          <span>Razebait</span>
         </div>
-        <div class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#work">My Work</a>
-          <a href="#testimonials">Testimonials</a>
-        </div>
+        <a class="nav-cta btn-sm" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20Razebait%2C%0AI'd%20like%20to%20collaborate.%20Please%20reach%20out!">LET'S COLLABORATE</a>
       </div>
     </nav>
 
@@ -228,7 +241,7 @@
           
         </div>
         <div class="card">
-          <h4 class="subtle" style="margin:4px 0 12px">Genres</h4>
+          <h3 class="card-title">Genres</h3>
           <div class="cat">
             <div class="dot" style="background:#67b2ff"></div>
             <div class="track"><div class="fill" style="--to:78%"></div></div>
@@ -323,7 +336,7 @@
     </section>
 
     <section style="padding:30px 0 60px">
-      <p class="subtle" style="text-align:center">© <span id="year"></span> N8Wealth. All rights reserved.</p>
+      <p class="subtle" style="text-align:center">© <span id="year"></span> Razebait. All rights reserved.</p>
     </section>
   </div>
 
