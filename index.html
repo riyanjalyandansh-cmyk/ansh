@@ -107,7 +107,13 @@
     .bar-chart{display:flex; align-items:flex-end; justify-content:space-between; gap:0; height:220px; padding:16px 8px 6px; position:relative}
     .bar{width:42px; border-radius:12px; background: linear-gradient(180deg, #c294ff, #6a2cff); box-shadow: inset 0 -6px 18px rgba(0,0,0,.25), 0 8px 28px rgba(119,73,255,.25); transform-origin: bottom}
     .bar-label{font-size:13px; color:#cfc9e6; text-align:center; margin-top:8px}
-    .bar-wrap{display:flex; flex-direction:column; align-items:center; flex:1}
+    .bar-wrap{display:flex; flex-direction:column; align-items:center; flex:1; position:relative}
+    .bar-value{position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; padding:3px 6px; border-radius:8px; background:rgba(255,255,255,.06); border:1px solid var(--border); white-space:nowrap}
+    .chart-controls{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:6px 4px 4px}
+    .chart-controls .hint{color:#cfc9e6; font-weight:600}
+    .range{appearance:none; -webkit-appearance:none; width:60%; min-width:220px; height:10px; background:rgba(255,255,255,.07); border:1px solid var(--border); border-radius:999px; outline:none}
+    .range::-webkit-slider-thumb{ -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:linear-gradient(90deg, var(--purple-2), var(--magenta)); border:1px solid var(--border-strong); box-shadow:0 2px 10px rgba(149,84,255,.35)}
+    .range::-moz-range-thumb{ width:18px; height:18px; border-radius:50%; background:linear-gradient(90deg, var(--purple-2), var(--magenta)); border:1px solid var(--border-strong)}
 
     /* Category bars */
     .cat{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px; margin:18px 0}
@@ -250,6 +256,10 @@
       <div class="charts">
         <div class="card">
           <h3 class="card-title">Monthly Viewership</h3>
+          <div class="chart-controls">
+            <span class="hint">Max monthly views: <strong id="maxViewsLabel">200M</strong></span>
+            <input id="maxViews" class="range" type="range" min="50" max="300" step="10" value="200" aria-label="Max monthly views (in millions)"/>
+          </div>
           <div id="bars" class="bar-chart" aria-label="Monthly bar chart">
             <!-- Edit data-heights in JS below to match exact numbers -->
           </div>
@@ -406,41 +416,68 @@
     // ----------------------
     // Bars (Monthly Viewership)
     // ----------------------
-    const data = [30, 60, 95, 130, 160, 190]; // change these to match your values
-    const labels = ['Nov','Dec','Jan','Feb','Mar','Apr'];
-    const max = Math.max(...data);
+    const months = ['Nov','Dec','Jan','Feb','Mar','Apr'];
+    const viewsM = [40, 70, 110, 150, 180, 200]; // in millions
     const barsEl = document.getElementById('bars');
+    const maxSlider = document.getElementById('maxViews');
+    const maxLabel = document.getElementById('maxViewsLabel');
 
-    data.forEach((h,i)=>{
+    // Build bars
+    barsEl.innerHTML = '';
+    months.forEach((m,i)=>{
       const wrap = document.createElement('div');
       wrap.className = 'bar-wrap';
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = '0px';
-      bar.dataset.target = (h / max * 200 + 30).toFixed(0); // min height pad
+      bar.dataset.index = i;
       wrap.appendChild(bar);
+      const val = document.createElement('span');
+      val.className = 'bar-value';
+      val.textContent = viewsM[i] + 'M';
+      wrap.appendChild(val);
       const lab = document.createElement('span');
       lab.className = 'bar-label';
-      lab.textContent = labels[i];
+      lab.textContent = m;
       wrap.appendChild(lab);
       barsEl.appendChild(wrap);
     });
 
-    // Animate bars on view
+    function updateMaxLabel(){ maxLabel.textContent = Number(maxSlider.value) + 'M'; }
+
+    function layoutBars(maxVal, animate){
+      const pxMax = 200; const minPad = 30;
+      document.querySelectorAll('.bar').forEach(el=>{
+        const i = +el.dataset.index;
+        const ratio = Math.min(viewsM[i] / maxVal, 1);
+        const target = (ratio * pxMax + minPad);
+        if(animate) el.style.transition = 'height 700ms cubic-bezier(.2,.9,.2,1)';
+        el.style.height = target + 'px';
+        const valEl = el.parentElement.querySelector('.bar-value');
+        valEl.textContent = viewsM[i] + 'M';
+      });
+    }
+
+    updateMaxLabel();
+
+    // Animate on view
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
-          document.querySelectorAll('.bar').forEach((el, i)=>{
-            setTimeout(()=>{
-              el.style.transition = 'height 700ms cubic-bezier(.2,.9,.2,1)';
-              el.style.height = el.dataset.target + 'px';
-            }, i*80);
-          });
+          layoutBars(Number(maxSlider.value), true);
           io.disconnect();
         }
       });
     }, { threshold:.35 });
     io.observe(barsEl);
+
+    // Slider controls
+    ['input','change'].forEach(evt=>{
+      maxSlider.addEventListener(evt, ()=>{
+        updateMaxLabel();
+        layoutBars(Number(maxSlider.value), false);
+      });
+    });
 
     // ----------------------
     // Category progress bars
