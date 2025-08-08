@@ -95,7 +95,7 @@
     }
     .stat{padding:18px 16px; background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:16px}
     .stat .label{font-weight:600; color:#cfc9e6; font-size:14px}
-    .stat .value{font-size:40px; font-weight:800; margin-top:6px}
+    .stat .value{font-size:40px; font-weight:800; margin-top:6px; transition:transform .4s ease}
 
     /* Sections */
     section{padding:68px 0}
@@ -164,6 +164,11 @@
       .nav-links{display:none}
       .cta .btn{width:100%; max-width:480px}
     }
+    /* Magic counters */
+    .stat .value.magic{background:linear-gradient(90deg,#d8caff,#ff67d6,#ffcf7a,#d8caff);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%}
+    .stat .value.animate{animation:shimmer 2s linear infinite, bump .9s cubic-bezier(.2,.9,.2,1) 1; text-shadow:0 0 24px rgba(149,84,255,.35)}
+    @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+    @keyframes bump{0%{transform:scale(1)}30%{transform:scale(1.06)}100%{transform:scale(1)}}
   </style>
 </head>
 <body>
@@ -219,7 +224,7 @@
           </div>
           <div class="stat">
             <div class="label">Total Subscribers</div>
-            <div class="value">12,5M</div>
+            <div class="value">12.5M</div>
           </div>
           <div class="stat">
             <div class="label">Channels</div>
@@ -416,6 +421,51 @@
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+      // Magic number counters (stats)
+    (function(){
+      const container = document.querySelector('.stats');
+      if(!container) return;
+      const values = container.querySelectorAll('.value');
+      let started = false;
+      function easeOutExpo(t){ return t===1 ? 1 : 1 - Math.pow(2, -10*t); }
+      function animate(el, target, decimals, suffix){
+        const duration = 1600;
+        const start = performance.now();
+        el.classList.add('magic','animate');
+        function step(now){
+          const t = Math.min(1, (now-start)/duration);
+          const eased = easeOutExpo(t);
+          const current = target * eased;
+          el.textContent = current.toFixed(decimals) + (suffix||'');
+          if(t < 1) requestAnimationFrame(step); else el.classList.remove('animate');
+        }
+        requestAnimationFrame(step);
+      }
+      function startCounters(){
+        if(started) return; started = true;
+        values.forEach(el=>{
+          const raw = (el.textContent||'').trim();
+          const m = raw.match(/([0-9]+(?:[.,][0-9]+)?)/);
+          let numStr = m ? m[1].replace(',', '.') : '0';
+          let suffix = raw.replace(/[0-9., ]/g,'');
+          const decimals = numStr.includes('.') ? (numStr.split('.')[1].length) : 0;
+          const target = parseFloat(numStr) || 0;
+          animate(el, target, decimals, suffix);
+        });
+      }
+      function startIfVisible(){
+        const r = container.getBoundingClientRect();
+        if(r.top < window.innerHeight && r.bottom > 0) startCounters();
+      }
+      // start if visible now, and also when scrolled into view (both)
+      startIfVisible();
+      window.addEventListener('load', startIfVisible);
+      window.addEventListener('resize', startIfVisible);
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ startCounters(); io.disconnect(); } });
+      }, {threshold:.35});
+      io.observe(container);
+    })();
   </script>
 </body>
 </html>
