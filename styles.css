@@ -1,58 +1,53 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+.partnerships {
+  padding: 80px 20px;
+  background-color: #11182e;
+  color: #f4f8ff;
 }
-
-header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
+.partnerships .section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #26d4ff;
 }
-
-nav ul {
-    background: #444;
-    list-style: none;
-    padding: 0;
-    text-align: center;
+.partnerships .section-subtitle {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  color: #b0cfff;
+  font-size: 1.1rem;
 }
-
-nav ul li {
-    display: inline;
-    margin: 0;
-    padding: 0;
+.partnerships-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
 }
-
-nav ul li a {
-    color: #fff;
-    display: inline-block;
-    padding: 10px 15px;
-    text-decoration: none;
+.partnership-card {
+  background: #192143;
+  padding: 30px;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-nav ul li a:hover {
-    background: #555;
+.partnership-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
-
-section {
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.partnership-card p {
+  font-size: 1rem;
+  color: #cbd6f5;
+  line-height: 1.5;
 }
-
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #333;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+.partnership-card.cyan h3 {
+  color: #26d4ff;
+}
+.partnership-card.magenta h3 {
+  color: #e500ff;
+}
+.partnership-card.green h3 {
+  color: #00ff88;
+}
+.partnership-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(38, 212, 255, 0.3);
 }
