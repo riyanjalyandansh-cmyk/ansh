@@ -1,149 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>N8Wealth Content Branding</title>
-  <!-- Font Awesome for icons (CDN link) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Google Font (Poppins) for modern typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  <!-- Main CSS Stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>N8Wealth — Where Content Becomes Culture</title>
+
+  <!-- Custom Styles -->
+  <style>
+    :root {
+      --bg: #0b0b16;
+      --panel: #121226;
+      --panel-2: #0f0f20;
+      --text: #f5f2ea;
+      --muted: #cfc8ff;
+      --accent: #b36bff;
+      --accent-pink: #ff52c8;
+      --accent-blue: #4db8ff;
+      --accent-light: #8ad7ff;
+      --accent-orange: #ff9a3c;
+      --card-glass: rgba(255,255,255,0.04);
+      --shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+      --radius: 20px;
+    }
+
+    @font-face {
+      font-family: "InterVar";
+      src: local("Inter"), local("Inter Variable"),
+           url('https://fonts.cdnfonts.com/s/19795/Inter-Regular.woff') format('woff');
+      font-display: swap;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: InterVar, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(179,107,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(79,184,255,.18), transparent 60%),
+        radial-gradient(700px 400px at 50% 100%, rgba(255,82,200,.14), transparent 60%),
+        linear-gradient(180deg,#0b0b16 0%, #0a0a18 60%, #0b0b16 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Container & Sections */
+    .container { width: min(1200px, 92%); margin: 0 auto; }
+    section { padding: 56px 0; position: relative; }
+    h1, h2, h3 { margin: 0 0 16px; line-height: 1.1; letter-spacing: .2px; }
+    h1 { font-size: clamp(36px, 6vw, 64px); color: #fff; }
+    h2 { font-size: clamp(24px, 3.2vw, 36px); color: #fff; }
+    h3 { font-size: clamp(16px, 2vw, 20px); color: var(--muted); font-weight: 600; }
+    p { margin: 0; color: rgba(255,255,255,.78); }
+
+    /* Nav */
+    .nav-wrap { position: sticky; top: 14px; z-index: 50; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; }
+    .brand .logo {
+      width: 34px; height: 34px; border-radius: 12px;
+      background: conic-gradient(from 210deg, var(--accent) 0 25%, var(--accent-pink) 25% 55%, var(--accent-blue) 55% 100%);
+      box-shadow: inset 0 6px 12px rgba(255,255,255,.18), 0 8px 24px rgba(179,107,255,.35);
+    }
+    .menu { display: flex; gap: 22px; align-items: center; font-weight: 600; }
+    .menu a {
+      color: rgba(255,255,255,.9); text-decoration: none; padding: 8px 14px; border-radius: 12px;
+      transition: all .3s ease;
+    }
+    .menu a:hover {
+      color: #fff; background: rgba(255,255,255,.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    /* Hero */
+    .hero { padding-top: 42px; padding-bottom: 24px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center;
+    }
+    .tag {
+      text-transform: uppercase; font-weight: 700; letter-spacing: .22em; font-size: 12px;
+      color: var(--muted);
+    }
+    .stats {
+      margin-top: 26px; display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px;
+    }
+    .stat {
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 16px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transform: translateY(16px); opacity: 0;
+      animation: rise .9s .25s both cubic-bezier(.2,.7,.2,1);
+    }
+    .stat h3 {
+      color: #fff; font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .stat .num {
+      font-size: 24px; font-weight: 800; color: var(--text);
+    }
+
+    /* Glowing Line Graph */
+    .graph-wrap {
+      position: relative; width: 100%; max-width: 600px; height: 360px;
+      border-radius: 24px; overflow: visible;
+      background:
+        radial-gradient(120% 120% at 50% 100%, rgba(179,107,255,.20), rgba(255,82,200,.10) 35%, rgba(79,184,255,.06) 60%, transparent 80%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+      margin: auto;
+    }
+    .glow-line {
+      position: absolute; inset: 0; --stroke: 3px;
+      background:
+        radial-gradient(120px 120px at var(--x, -10%) var(--y, 50%), rgba(255,255,255,.18), transparent 60%) no-repeat,
+        linear-gradient(90deg, var(--accent), var(--accent-pink) 45%, var(--accent-blue)) 0/200% 100%;
+      -webkit-mask:
+        linear-gradient(#000 0 0) padding-box,
+        radial-gradient(40px 40px at var(--x) var(--y), #000 98%, transparent) border-box;
+      mask:
+        linear-gradient(#000 0 0) padding-box,
+        radial-gradient(40px 40px at var(--x) var(--y), #000 98%, transparent) border-box;
+      border: var(--stroke) solid transparent;
+      filter: drop-shadow(0 0 18px rgba(179,107,255,.6)) drop-shadow(0 0 26px rgba(255,82,200,.4));
+      animation: path 7s cubic-bezier(.35,.0,.25,1) infinite, hue 8s linear infinite, shimmer 4s ease-in-out infinite;
+    }
+
+    /* Monthly Viewership */
+    .charts {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; margin-top: 26px;
+    }
+    .bar-card, .legend-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 16px; box-shadow: var(--shadow);
+    }
+    .bars {
+      display: flex; align-items: flex-end; gap: 14px; height: 180px; padding: 8px 4px 0;
+    }
+    .bar {
+      width: 32px; border-radius: 10px 10px 6px 6px;
+      background: linear-gradient(180deg, #caa8ff, #7a4dff 60%, #5b2fff);
+      box-shadow: 0 8px 20px rgba(122,77,255,.35);
+      transform: scaleY(0); opacity: 0;
+      will-change: transform, opacity;
+      animation: grow .9s both cubic-bezier(.2,.7,.2,1);
+    }
+    .bar:nth-child(1) { height: 38%; animation-delay: .1s; }
+    .bar:nth-child(2) { height: 48%; animation-delay: .2s; }
+    .bar:nth-child(3) { height: 62%; animation-delay: .3s; }
+    .bar:nth-child(4) { height: 78%; animation-delay: .4s; }
+    .bar:nth-child(5) { height: 100%; animation-delay: .5s; }
+    .months {
+      display: flex; justify-content: space-between;
+      margin-top: 10px; color: rgba(255,255,255,.75);
+      font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    }
+    .legend {
+      display: flex; flex-direction: column; gap: 14px; margin-top: 6px;
+    }
+    .legend-row {
+      display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center;
+    }
+    .legend-row span {
+      font-weight: 700; color: #fff; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .legend-bar {
+      height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden;
+    }
+    .legend-row:nth-child(1) i {
+      background: linear-gradient(90deg, #3aa0ff, #1f7dff);
+      animation: fill 1.3s .2s both;
+    }
+    .legend-row:nth-child(2) i {
+      background: linear-gradient(90deg, #9fe0ff, #5ec9ff);
+      animation: fill 1.3s .35s both;
+    }
+    .legend-row:nth-child(3) i {
+      background: linear-gradient(90deg, #a26bff, #6a2dff);
+      animation: fill 1.3s .5s both;
+    }
+    .legend-row:nth-child(4) i {
+      background: linear-gradient(90deg, #ffb66e, #ff8c2e);
+      animation: fill 1.3s .65s both;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .cta .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      margin-top: 16px; padding: 14px 20px; border-radius: 999px;
+      color: var(--bg); font-weight: 800; letter-spacing: .08em; text-transform: capitalize;
+      background: radial-gradient(120% 120% at 0% 100%, #ff9aee, #b36bff 50%, #4db8ff 100%);
+      box-shadow: 0 10px 25px rgba(179,107,255,.45), 0 6px 16px rgba(77,184,255,.28);
+      text-decoration: none; transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .cta .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(179,107,255,.55), 0 10px 26px rgba(77,184,255,.35);
+    }
+
+    /* Collaboration & Stories */
+    .grid-3 {
+      margin-top: 20px;
+      display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px;
+    }
+    .card {
+      padding: 18px; border-radius: 16px; background: var(--card-glass);
+      border: 1px solid rgba(255,255,255,.08); box-shadow: var(--shadow);
+      transition: transform .25s ease, background .25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px); background: rgba(255,255,255,.06);
+    }
+    .icon {
+      width: 38px; height: 38px; border-radius: 12px; display: inline-block; margin-bottom: 12px;
+      background: linear-gradient(145deg, rgba(179,107,255,.9), rgba(77,184,255,.9));
+      box-shadow: 0 10px 24px rgba(77,184,255,.28), inset 0 1px 0 rgba(255,255,255,.25);
+    }
+    .stories {
+      display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin-top: 14px;
+    }
+    .story {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px; box-shadow: var(--shadow);
+      min-height: 120px;
+    }
+
+    /* Animations */
+    @keyframes rise { to { transform: translateY(0); opacity: 1; } }
+    @keyframes grow { to { transform: scaleY(1); opacity: 1; } }
+    @keyframes fill { to { width: 100%; } }
+    @keyframes hue { to { filter: drop-shadow(0 0 18px rgba(179,107,255,.6)) drop-shadow(0 0 26px rgba(255,82,200,.45)) hue-rotate(360deg); } }
+    @keyframes shimmer { 0%,100% { background-size: 200% 100%; } 50% { background-position: 100% 0; } }
+    @keyframes path {
+      0%   { --x: 5%;  --y: 70%; }
+      20%  { --x: 25%; --y: 58%; }
+      40%  { --x: 45%; --y: 62%; }
+      60%  { --x: 65%; --y: 48%; }
+      80%  { --x: 82%; --y: 38%; }
+      100% { --x: 95%; --y: 28%; }
+    }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(18px); }
+    .reveal.show { opacity: 1; transform: none; transition: all .8s cubic-bezier(.2,.7,.2,1); }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .charts { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .stories { grid-template-columns: 1fr 1fr; }
+      .menu { gap: 10px; }
+    }
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: 1fr; }
+      .stories { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="logo">N8Wealth</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#work">My Work</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Section: Title and Animated Line Graph -->
-  <header id="home" class="hero-section">
-    <h1 class="hero-title">Where Content Becomes Culture</h1>
-    <!-- Canvas for animated line graph -->
-    <canvas id="heroChart"></canvas>
-  </header>
-
-  <!-- Statistics and Graphs Section -->
-  <section class="stats-graphs-section">
-    <!-- Statistics Cards -->
-    <div class="stats-container fade-in">
-      <div class="stats-card">
-        <div class="stat-number">248M</div>
-        <div class="stat-label">Total Views</div>
+  <!-- Navigation -->
+  <div class="nav-wrap container">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>N8Wealth</span>
       </div>
-      <div class="stats-card">
-        <div class="stat-number">12.5M</div>
-        <div class="stat-label">Subscribers</div>
+      <div class="menu">
+        <a href="#">Home</a>
+        <a href="#work">My Work</a>
+        <a href="#testimonials">Testimonials</a>
       </div>
-      <div class="stats-card">
-        <div class="stat-number">18</div>
-        <div class="stat-label">Channels</div>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero container reveal">
+    <div class="hero-grid">
+      <div>
+        <div class="tag">Creator Network</div>
+        <div class="headline">
+          <h1>Where Content Becomes Culture.</h1>
+        </div>
+        <div class="stats">
+          <div class="stat"><h3>Total Views</h3><div class="num">0</div></div>
+          <div class="stat"><h3>Total Subscribers</h3><div class="num">0</div></div>
+          <div class="stat"><h3>Channels</h3><div class="num">0</div></div>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <div class="glow-line" aria-hidden="true"></div>
       </div>
     </div>
-    <!-- Graphs: Bar chart and Category breakdown -->
-    <div class="graphs-container fade-in">
-      <!-- Monthly Viewership Bar Chart -->
-      <div class="bar-chart-block">
-        <h3 class="graph-title">Monthly Viewership</h3>
-        <canvas id="barChart"></canvas>
+  </section>
+
+  <!-- Monthly Viewership -->
+  <section class="container reveal" id="work">
+    <h2>Monthly Viewership</h2>
+    <div class="charts">
+      <div class="bar-card">
+        <div class="bars">
+          <div class="bar" title="Nov"></div>
+          <div class="bar" title="Dec"></div>
+          <div class="bar" title="Jan"></div>
+          <div class="bar" title="Feb"></div>
+          <div class="bar" title="Mar"></div>
+        </div>
+        <div class="months">
+          <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span>
+        </div>
       </div>
-      <!-- Category Breakdown (horizontal bars) -->
-      <div class="categories-block">
-        <h3 class="graph-title">By Category</h3>
-        <div class="category">
-          <span class="category-label"><i class="fa fa-child"></i> Kids</span>
-          <div class="category-bar-container">
-            <div class="category-bar kids"></div>
-          </div>
-        </div>
-        <div class="category">
-          <span class="category-label"><i class="fa fa-video"></i> Documentary</span>
-          <div class="category-bar-container">
-            <div class="category-bar documentary"></div>
-          </div>
-        </div>
-        <div class="category">
-          <span class="category-label"><i class="fa fa-gamepad"></i> Gaming</span>
-          <div class="category-bar-container">
-            <div class="category-bar gaming"></div>
-          </div>
-        </div>
-        <div class="category">
-          <span class="category-label"><i class="fa fa-bolt"></i> Trending</span>
-          <div class="category-bar-container">
-            <div class="category-bar trending"></div>
-          </div>
+      <div class="legend-card">
+        <div class="legend">
+          <div class="legend-row"><span>Kids</span><div class="legend-bar"><i></i></div></div>
+          <div class="legend-row"><span>Documentary</span><div class="legend-bar"><i></i></div></div>
+          <div class="legend-row"><span>Gaming</span><div class="legend-bar"><i></i></div></div>
+          <div class="legend-row"><span>Trending</span><div class="legend-bar"><i></i></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Call-to-Action Section -->
-  <section class="cta-section fade-in">
-    <h2 class="cta-title">Elevate Your Brand</h2>
-    <button class="cta-button">Let's Collaborate</button>
+  <!-- CTA -->
+  <section class="cta reveal">
+    <div class="container" style="max-width:780px;">
+      <h2>Elevate Your Brand</h2>
+      <p>Partner with a culture-first network that turns audiences into communities.</p>
+      <a class="btn" href="#contact">Let's Collaborate</a>
+    </div>
   </section>
 
-  <!-- Brand Collaboration Section -->
-  <section class="brand-collab-section" id="work">
-    <h2 class="section-title fade-in">Brand Collaboration</h2>
-    <p class="section-description fade-in">
-      We provide a one-step solution for your campaign, reaching millions of views. 
+  <!-- Collaboration Cards -->
+  <section class="container reveal">
+    <h2>Brand Collaboration</h2>
+    <p style="margin-top:6px">
+      We provide a one-step solution for your campaign, reaching millions of views.
       Contact us to tailor campaigns for YouTube, TikTok, Instagram, and Twitch.
     </p>
-    <div class="features-container">
-      <div class="feature-box fade-in">
-        <div class="feature-icon"><i class="fa fa-globe"></i></div>
-        <h3 class="feature-title">Multi-Platform Campaigns</h3>
-        <p class="feature-text">
-          Tailored campaigns for YouTube, TikTok, Instagram, and Twitch to maximize reach.
-        </p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="icon"></span>
+        <h3>Multi-Platform Campaigns</h3>
+        <p>We tailor campaigns for YouTube, TikTok, Instagram, and Twitch to maximize reach.</p>
       </div>
-      <div class="feature-box fade-in">
-        <div class="feature-icon"><i class="fa fa-box-open"></i></div>
-        <h3 class="feature-title">Authentic Integrations</h3>
-        <p class="feature-text">
-          Seamless brand placements that feel natural and build trust with audiences.
-        </p>
+      <div class="card">
+        <span class="icon" style="background: linear-gradient(145deg,#ff52c8,#b36bff)"></span>
+        <h3>Authentic Product Integrations</h3>
+        <p>Seamless brand placement that feels natural and drives trust with audiences.</p>
       </div>
-      <div class="feature-box fade-in">
-        <div class="feature-icon"><i class="fa fa-magic"></i></div>
-        <h3 class="feature-title">Creative Storytelling</h3>
-        <p class="feature-text">
-          High-impact narratives that connect emotionally and inspire action.
-        </p>
+      <div class="card">
+        <span class="icon" style="background: linear-gradient(145deg,#4db8ff,#ff52c8)"></span>
+        <h3>Creative Storytelling</h3>
+        <p>High-impact narratives that connect emotionally and inspire action.</p>
       </div>
     </div>
   </section>
 
-  <!-- Success Stories Section -->
-  <section class="success-section" id="testimonials">
-    <h2 class="section-title fade-in">Brand Success Stories</h2>
-    <div class="stories-container">
-      <div class="story-box fade-in">
-        <h3 class="story-title">Success Story 1</h3>
-        <p class="story-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="story-box fade-in">
-        <h3 class="story-title">Success Story 2</h3>
-        <p class="story-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="story-box fade-in">
-        <h3 class="story-title">Success Story 3</h3>
-        <p class="story-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
+  <!-- Success Stories -->
+  <section class="container reveal" id="testimonials">
+    <h2>Brand Success Stories</h2>
+    <div class="stories">
+      <div class="story"><h3>Success Story 1</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+      <div class="story"><h3>Success Story 2</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+      <div class="story"><h3>Success Story 3</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+      <div class="story"><h3>Success Story 4</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
     </div>
   </section>
 
-  <!-- JavaScript includes (Chart.js library and custom script) -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+  <!-- Scripts -->
+  <script>
+    // Intersection Observer for Reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('show');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: .16 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Stats Count-Up Animation
+    function animateCount(el, target, duration) {
+      let start = 0;
+      const step = Math.ceil(target / (duration / 20));
+      const timer = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = start.toLocaleString();
+        if (start >= target) clearInterval(timer);
+      }, 20);
+    }
+
+    const statConfigs = [
+      { selector: '.stat:nth-child(1) .num', raw: 248000000, suffix: 'M' },
+      { selector: '.stat:nth-child(2) .num', raw: 12500000, suffix: 'M' },
+      { selector: '.stat:nth-child(3) .num', raw: 18, suffix: '' }
+    ];
+
+    const statObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          statConfigs.forEach(cfg => {
+            const el = document.querySelector(cfg.selector);
+            const unit = cfg.suffix === 'M' ? 1000000 : 1;
+            const targetNum = Math.floor(cfg.raw / unit);
+            animateCount(el, targetNum, 1500);
+            el.textContent = '0' + cfg.suffix; // initial value
+            setTimeout(() => { el.textContent = `${targetNum}${cfg.suffix}`; }, 1500);
+          });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: .5 });
+
+    document.querySelectorAll('.stat').forEach(card => statObserver.observe(card));
+
+    // Parallax Hue Control
+    const glow = document.querySelector('.glow-line');
+    if (glow) {
+      document.addEventListener('pointermove', e => {
+        const r = glow.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        glow.style.setProperty('--x', x + '%');
+        glow.style.setProperty('--y', y + '%');
+      }, { passive: true });
+    }
+  </script>
 </body>
 </html>
