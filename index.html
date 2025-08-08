@@ -131,12 +131,6 @@
     .nav-cta{ background:linear-gradient(90deg, var(--purple-2), var(--magenta)); color:white; text-decoration:none; border:1px solid var(--border-strong); box-shadow: var(--glow); white-space:nowrap }
     .card-title{font-size:28px; font-weight:800; letter-spacing:-.02em; margin:4px 0 12px}
 
-    .charts-head{display:grid; grid-template-columns: 1.1fr .9fr; align-items:end; gap:34px; margin-bottom:10px}
-    .right-title{text-align:left}
-    .tooltip{position:absolute; padding:8px 12px; font-weight:700; font-size:12px; background:rgba(12,10,20,.95); border:1px solid var(--border-strong); border-radius:10px; box-shadow: var(--glow); pointer-events:none; opacity:0; transform:translate(-50%,-14px); transition:opacity .12s ease, transform .12s ease}
-    .tooltip.show{opacity:1; transform:translate(-50%,-18px)}
-    .cta-card{display:flex; flex-direction:column; align-items:center; gap:16px; padding:28px 24px; border:1px solid var(--border); border-radius:var(--radius-xl); background:rgba(255,255,255,.03); box-shadow: var(--glow); max-width:720px; margin:0 auto}
-
     /* Features grid */
     .features{display:grid; grid-template-columns: repeat(3, 1fr); gap:22px}
     .feature{padding:24px; background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:18px}
@@ -167,10 +161,8 @@
       .stories{grid-template-columns:1fr}
       .bar{width:26px}
       .nav-cta{display:inline-block}
+      .nav-links{display:none}
       .cta .btn{width:100%; max-width:480px}
-    }
-      .bar{width:30px}
-      .nav-cta{display:inline-block}
     }
   </style>
 </head>
@@ -239,15 +231,16 @@
 
     <!-- MONTHLY VIEWS -->
     <section>
-      <div class="charts-head">
-        <h3 class="section-title">Monthly Viewership</h3>
-        <h3 class="section-title right-title">Genres</h3>
-      </div>
       <div class="charts">
         <div class="card">
-          <div id="bars" class="bar-chart" aria-label="Monthly bar chart"></div>
+          <h3 class="card-title">Monthly Viewership</h3>
+          <div id="bars" class="bar-chart" aria-label="Monthly bar chart">
+            <!-- Edit data-heights in JS below to match exact numbers -->
+          </div>
+          
         </div>
         <div class="card">
+          <h3 class="card-title">Genres</h3>
           <div class="cat">
             <div class="dot" style="background:#67b2ff"></div>
             <div class="track"><div class="fill" style="--to:78%"></div></div>
@@ -274,10 +267,8 @@
 
     <!-- CTA -->
     <section class="cta">
-      <div class="cta-card">
-        <h2>Elevate Your Brand</h2>
-        <a class="btn" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20Razebait%2C%0AI'm%20interested%20in%20collaborating.%20Please%20reach%20out!">LET'S COLLABORATE</a>
-      </div>
+      <h2>Elevate Your Brand</h2>
+      <a class="btn" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20N8Wealth%2C%0AI'm%20interested%20in%20collaborating.%20Please%20reach%20out!">LET'S COLLABORATE</a>
     </section>
 
     <!-- BRAND COLLABORATION -->
@@ -367,45 +358,24 @@
     // ----------------------
     // Bars (Monthly Viewership)
     // ----------------------
-    const months = ['Nov','Dec','Jan','Feb','Mar','Apr'];
-    const viewsM = [12,24,48,72,96,120];
-    const max = Math.max(...viewsM);
+    const data = [30, 60, 95, 130, 160, 190]; // change these to match your values
+    const labels = ['Nov','Dec','Jan','Feb','Mar','Apr'];
+    const max = Math.max(...data);
     const barsEl = document.getElementById('bars');
 
-    viewsM.forEach((h,i)=>{
+    data.forEach((h,i)=>{
       const wrap = document.createElement('div');
       wrap.className = 'bar-wrap';
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = '0px';
-      bar.dataset.target = $1; // min height pad
-      bar.dataset.value = viewsM[i];
+      bar.dataset.target = (h / max * 200 + 30).toFixed(0); // min height pad
       wrap.appendChild(bar);
       const lab = document.createElement('span');
       lab.className = 'bar-label';
-      lab.textContent = months[i];
+      lab.textContent = labels[i];
       wrap.appendChild(lab);
       barsEl.appendChild(wrap);
-    });
-
-    // Tooltip for bars
-    const tip = document.createElement('div');
-    tip.className = 'tooltip';
-    barsEl.appendChild(tip);
-    document.querySelectorAll('.bar').forEach((el, i)=>{
-      const show = (x,y)=>{
-        const rect = barsEl.getBoundingClientRect();
-        tip.style.left = (x - rect.left) + 'px';
-        tip.style.top = (y - rect.top - 20) + 'px';
-        tip.textContent = months[i] + ' — ' + el.dataset.value + 'M views';
-        tip.classList.add('show');
-      };
-      el.addEventListener('mouseenter', (e)=> show(e.clientX, e.clientY));
-      el.addEventListener('mousemove', (e)=> show(e.clientX, e.clientY));
-      el.addEventListener('mouseleave', ()=> tip.classList.remove('show'));
-      el.addEventListener('touchstart', (e)=>{
-        const t = e.touches[0]; show(t.clientX, t.clientY);
-      }, {passive:true});
     });
 
     // Animate bars on view
