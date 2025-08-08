@@ -260,12 +260,18 @@
         </div>
         <div class="card">
           <h3 class="card-title">Genres</h3>
-          <div class="cat">
+          <div class="cat" data-pct="25">
             <div class="dot" style="background:#67b2ff"></div>
-            <div class="track"><div class="fill" style=\"--to:25%\">
-              <span class=\"gicon kids\">$1<\/span>
-              <span class=\"pct\">25%<\/span>
-            <\/div><\/div>
+            <div class="track"><div class="fill" style="--to:25%">
+              <span class="gicon kids">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="8"/>
+                  <path d="M8.5 10.5h0M15.5 10.5h0"/>
+                  <path d="M8.5 14c1.2 1 2.6 1.5 3.5 1.5s2.3-.5 3.5-1.5"/>
+                </svg>
+              </span>
+              <span class="pct">25%</span>
+            </div></div>
             <small>Kids</small>
           </div>
           <div class="cat">
@@ -403,8 +409,8 @@
     // ----------------------
     // Bars (Monthly Viewership)
     // ----------------------
-    const months = ['May','Jun','Jul','Aug'];
-    const viewsM = [197, 200, 230, 400];
+    const months = ['Mar','Apr','May','Jun','Jul','Aug'];
+    const viewsM = [180, 190, 197, 200, 230, 400];
     const max = Math.max(...viewsM);
     const barsEl = document.getElementById('bars');
 
@@ -451,12 +457,18 @@
       entries.forEach(e=>{
         if(e.isIntersecting){
           fills.forEach((el, i)=>{
-            const to = getComputedStyle(el).getPropertyValue('--to') || '70%';
+            let to = getComputedStyle(el).getPropertyValue('--to') || '70%';
+            const pctNum = el.closest('.cat')?.dataset.pct ? Number(el.closest('.cat').dataset.pct) : parseInt(to);
             setTimeout(()=>{
               el.style.transition = 'width 900ms ease';
               el.style.width = to;
               const cat = el.closest('.cat');
               if(cat) cat.classList.add('active');
+              // ensure pct label exists and matches width/assigned
+              let badge = el.querySelector('.pct');
+              if(!badge){ badge = document.createElement('span'); badge.className = 'pct'; el.appendChild(badge); }
+              badge.textContent = (isNaN(pctNum)? parseInt(to): pctNum) + '%';
+              // icon reveal
               const icon = el.querySelector('.gicon');
               setTimeout(()=>{ if(icon) icon.classList.add('show'); }, 120);
             }, i*120);
