@@ -1,52 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RNA Media — Multi-Genre Digital Media Powerhouse</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNA Media - Multi-Genre Digital Media Powerhouse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #1a1a1a;
+            --accent-cyan: #26d4ff;
+            --accent-magenta: #e500ff;
+            --accent-orange: #ff6b35;
+            --accent-green: #00ff88;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --gradient: linear-gradient(135deg, #26d4ff 0%, #e500ff 100%);
+            --gradient-multi: linear-gradient(135deg, #26d4ff 0%, #e500ff 50%, #ff6b35 100%);
+            --card-bg: #111111;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .nav-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 0 80px;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(38, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(229, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 40%, rgba(255, 107, 53, 0.08) 0%, transparent 60%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--accent-cyan);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: var(--gradient-multi);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            line-height: 1.5;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(38, 212, 255, 0.3);
+            margin-right: 20px;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(38, 212, 255, 0.4);
+        }
+
+        .hero-cta-secondary {
+            display: inline-block;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            padding: 16px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta-secondary:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        /* ===== GENRE SHOWCASE ===== */
+        .genres {
+            padding: 120px 0;
+            background: var(--secondary-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .genres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .genre-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .genre-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(38, 212, 255, 0.3);
+        }
+
+        .genre-card.kids {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 107, 53, 0.1) 100%);
+        }
+
+        .genre-card.gaming {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(38, 212, 255, 0.1) 100%);
+        }
+
+        .genre-card.documentary {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(229, 0, 255, 0.1) 100%);
+        }
+
+        .genre-card.viral {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(0, 255, 136, 0.1) 100%);
+        }
+
+        .genre-icon {
+            width: 60px;
+            height: 60px;
+            margin: 30px auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .genre-card.kids .genre-icon {
+            background: linear-gradient(135deg, #ff6b35, #ff8f5c);
+        }
+
+        .genre-card.gaming .genre-icon {
+            background: linear-gradient(135deg, #26d4ff, #5ce1ff);
+        }
+
+        .genre-card.documentary .genre-icon {
+            background: linear-gradient(135deg, #e500ff, #f055ff);
+        }
+
+        .genre-card.viral .genre-icon {
+            background: linear-gradient(135deg, #00ff88, #55ffaa);
+        }
+
+        .genre-info {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+
+        .genre-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .genre-stats {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .genre-card.kids .genre-stats {
+            color: var(--accent-orange);
+        }
+
+        .genre-card.gaming .genre-stats {
+            color: var(--accent-cyan);
+        }
+
+        .genre-card.documentary .genre-stats {
+            color: var(--accent-magenta);
+        }
+
+        .genre-card.viral .genre-stats {
+            color: var(--accent-green);
+        }
+
+        .genre-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===== CAPABILITIES ===== */
+        .capabilities {
+            padding: 120px 0;
+        }
+
+        .capabilities-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .capabilities-text h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        .capabilities-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .capabilities-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .capabilities-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .capability-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .capabilities-visual {
+            background: var(--card-bg);
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .process-steps {
+            display: grid;
+            gap: 25px;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ===== PARTNERSHIPS ===== */
+        .partnerships {
+            padding: 120px 0;
+            background: var(--secondary-dark);
+        }
+
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .partnership-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .partnership-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .partnership-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent-cyan);
+        }
+
+        .partnership-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .final-cta {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--secondary-dark);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+            }
+            
+            .capabilities-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .partnership-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-cta, .hero-cta-secondary {
+                display: block;
+                margin: 10px auto;
+                text-align: center;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <!-- ===== NAVIGATION ===== -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo-brand">
-        <img src="/assets/images/rna.jpg" alt="RNA Media Logo" class="logo">
-        <div class="brand-name">RNA Media</div>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/about-us.html">About Us</a></li>
-        <li><a href="/careers.html">Careers</a></li>
-        <li><a href="/press.html">Press</a></li>
-      </ul>
-      <a href="#contact" class="nav-cta">Partner With Us</a>
-    </div>
-  </nav>
-
-  <!-- ===== HERO SECTION ===== -->
-  <section id="home" class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">Multi-Genre Digital Media Powerhouse</div>
-        <h1>We Build Viral Content Brands</h1>
-        <p class="hero-subtitle">
-          RNA Media creates, operates, and accelerates diverse digital media brands across the fastest-growing genres — from kids entertainment and gaming to documentaries and viral content.
-        </p>
-        <div class="hero-stats">
-          <div class="stat"><span class="stat-number">75M+</span><span class="stat-label">Network Views</span></div>
-          <div class="stat"><span class="stat-number">12M+</span><span class="stat-label">Subscribers</span></div>
-          <div class="stat"><span class="stat-number">6</span><span class="stat-label">Active Brands</span></div>
-          <div class="stat"><span class="stat-number">4</span><span class="stat-label">Content Genres</span></div>
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-brand">
+                <img src="https://i.imgur.com/5Qf6KbW.png" alt="RNA Media Logo" class="logo">
+                <div class="brand-name">RNA Media</div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#partnerships">Partnerships</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Partner With Us</a>
         </div>
-        <a href="#partnerships" class="hero-cta">Explore Partnerships</a>
-        <a href="/about-us.html" class="hero-cta-secondary">Our Story</a>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- ===== GENRE PORTFOLIO, CAPABILITIES, PARTNERSHIPS, CTA, FOOTER ===== -->
-  <!-- Paste the rest of the homepage sections from our previous completed homepage code, unchanged except updating asset paths to /assets/... -->
+    <!-- ===== HERO SECTION ===== -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">Multi-Genre Digital Media Powerhouse</div>
+                <h1>We Build Viral Content Brands</h1>
+                <p class="hero-subtitle">RNA Media creates, operates, and accelerates diverse digital media brands across the fastest-growing online content genres — from kids entertainment and gaming to documentaries and viral phenomena.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">75M+</span>
+                        <span class="stat-label">Network Views</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">12M+</span>
+                        <span class="stat-label">Total Subscribers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Active Brands</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Content Genres</span>
+                    </div>
+                </div>
+                
+                <a href="#partnerships" class="hero-cta">Explore Partnerships</a>
+                <a href="about-us.html" class="hero-cta-secondary">Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GENRE PORTFOLIO ===== -->
+    <section id="portfolio" class="genres">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Multi-Genre Portfolio</h2>
+                <p class="section-subtitle">We identify viral trends and build scalable content brands across diverse, high-growth digital media verticals.</p>
+            </div>
+            
+            <div class="genres-grid">
+                <div class="genre-card kids fade-in">
+                    <div class="genre-icon">🎪</div>
+                    <div class="genre-info">
+                        <h3 class="genre-title">Kids & Family</h3>
+                        <p class="genre-stats">3.2M subscribers • Educational Entertainment</p>
+                        <p class="genre-description">Engaging educational content, animated stories, and interactive learning experiences designed for children and families worldwide.</p>
+                    </div>
+                </div>
+                
+                <div class="genre-card gaming fade-in">
+                    <div class="genre-icon">🎮</div>
+                    <div class="genre-info">
+                        <h3 class="genre-title">Gaming & Esports</h3>
+                        <p class="genre-stats">2.8M subscribers • Gaming Entertainment</p>
+                        <p class="genre-description">Immersive gameplay experiences, walkthroughs, live streams, and competitive gaming content for core gaming audiences.</p>
+                    </div>
+                </div>
+                
+                <div class="genre-card documentary fade-in">
+                    <div class="genre-icon">🎬</div>
+                    <div class="genre-info">
+                        <h3 class="genre-title">Documentaries & Stories</h3>
+                        <p class="genre-stats">1.5M subscribers • Premium Content</p>
+                        <p class="genre-description">In-depth documentary content, investigative journalism, and compelling storytelling that educates and inspires global audiences.</p>
+                    </div>
+                </div>
+                
+                <div class="genre-card viral fade-in">
+                    <div class="genre-icon">⚡</div>
+                    <div class="genre-info">
+                        <h3 class="genre-title">Viral & Trending</h3>
+                        <p class="genre-stats">4.5M subscribers • Viral Content</p>
+                        <p class="genre-description">Trend-focused content, viral phenomena, and culturally relevant media that captures the zeitgeist and drives massive engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CAPABILITIES ===== -->
+    <section class="capabilities">
+        <div class="container">
+            <div class="capabilities-content">
+                <div class="capabilities-text">
+                    <h2>Our Media Formula</h2>
+                    <p>We've developed a proven methodology for identifying emerging trends, building content brands, and scaling them to millions of engaged viewers across multiple platforms.</p>
+                    
+                    <ul class="capabilities-list">
+                        <li><span class="capability-icon">🔍</span> Trend Identification & Market Analysis</li>
+                        <li><span class="capability-icon">🚀</span> Brand Launch & Content Strategy</li>
+                        <li><span class="capability-icon">📈</span> Audience Growth & Community Building</li>
+                        <li><span class="capability-icon">💰</span> Revenue Diversification & Partnerships</li>
+                    </ul>
+                </div>
+                
+                <div class="capabilities-visual">
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Market research and trend analysis to identify high-potential content verticals</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Brand development and content strategy tailored to target demographics</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Content production and optimization using data-driven insights</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-text">Scale through partnerships, licensing, and strategic brand collaborations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PARTNERSHIPS ===== -->
+    <section id="partnerships" class="partnerships">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Strategic Partnerships</h2>
+                <p class="section-subtitle">We collaborate with brands, platforms, and creators to build innovative campaigns tailored to diverse audiences across our multi-genre network.</p>
+            </div>
+            
+            <div class="partnership-grid">
+                <div class="partnership-card fade-in">
+                    <h3>Brand Collaborations</h3>
+                    <p>Custom branded content integration across our diverse portfolio, reaching millions of engaged viewers in kids, gaming, documentary, and viral content verticals.</p>
+                </div>
+                
+                <div class="partnership-card fade-in">
+                    <h3>Platform Partnerships</h3>
+                    <p>Strategic relationships with major platforms to maximize distribution, optimize monetization, and access exclusive promotional opportunities.</p>
+                </div>
+                
+                <div class="partnership-card fade-in">
+                    <h3>Creator Network</h3>
+                    <p>Collaborative partnerships with independent creators, offering production resources, audience development, and revenue optimization support.</p>
+                </div>
+                
+                <div class="partnership-card fade-in">
+                    <h3>Licensing & IP</h3>
+                    <p>Original content licensing deals, IP development partnerships, and format adaptation opportunities across international markets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FINAL CTA ===== -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Build Something Viral?</h2>
+                <p class="cta-subtitle">Partner with RNA Media to tap into our multi-genre expertise, audience reach, and proven track record of building successful digital media brands.</p>
+                <a href="#contact" class="hero-cta">Start Partnership Discussion</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">
+                        <img src="https://i.imgur.com/5Qf6KbW.png" alt="RNA Media Logo" class="logo">
+                        <div class="brand-name">RNA Media</div>
+                    </div>
+                    <p class="footer-description">Multi-genre digital media powerhouse creating, operating, and accelerating viral content brands across diverse online verticals.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="press.html">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Partnerships</h4>
+                    <ul class="footer-links">
+                        <li><a href="#partnerships">Brand Collaborations</a></li>
+                        <li><a href="media-kit.html">Media Kit</a></li>
+                        <li><a href="#partnerships">Creator Network</a></li>
+                        <li><a href="#partnerships">Licensing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:partnerships@rnamedia.com">partnerships@rnamedia.com</a></li>
+                        <li><a href="mailto:press@rnamedia.com">press@rnamedia.com</a></li>
+                        <li><a href="https://linkedin.com/company/rnamedia">LinkedIn</a></li>
+                        <li><a href="tel:+1-555-0123">+1 (555) 012-3456</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 RNA Media. All rights reserved. | Multi-Genre Digital Media Powerhouse</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== SCROLL ANIMATIONS =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== SMOOTH SCROLLING =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
