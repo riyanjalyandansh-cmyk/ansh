@@ -2,335 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Where Content Becomes Culture</title>
-  <style>
-    /* Global Reset & Utilities */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1a001a 0%, #000000 100%);
-      color: #fff;
-      overflow-x: hidden;
-    }
-    h1, h2, h3 { font-weight: 800; }
-    p { font-weight: 300; line-height: 1.5; }
-
-    /* Container & Sections */
-    .container { max-width: 1200px; margin: auto; padding: 0 20px; }
-    section { padding: 80px 0; position: relative; }
-
-    /* Scroll Animation Utility */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .in-view { opacity: 1; transform: translateY(0); }
-
-    /* Hero Section */
-    #hero {
-      text-align: center;
-      padding-top: 120px;
-    }
-    #hero h1 {
-      font-size: 3rem;
-      color: #fff;
-      text-shadow: 0 0 12px rgba(138,43,226,0.9);
-    }
-    .metrics {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .metric-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(138,43,226,0.6);
-      border-radius: 12px;
-      padding: 20px;
-      min-width: 140px;
-      text-align: center;
-      box-shadow: 0 0 12px rgba(138,43,226,0.5);
-      transition: transform 0.3s ease;
-    }
-    .metric-card:hover { transform: translateY(-6px) scale(1.02); }
-    .metric-card h3 { font-size: 1.2rem; margin-bottom: 8px; color: #aaa; }
-    .metric-card p { font-size: 2rem; font-weight: 700; }
-
-    /* Chart Containers */
-    .chart-wrapper {
-      position: relative;
-      max-width: 800px;
-      margin: 60px auto 0;
-      height: 300px;
-      filter: drop-shadow(0 0 12px rgba(138,43,226,0.7));
-    }
-    /* Placeholder for animated line graph */
-    #lineChart { width:100%; height:100%; }
-
-    /* Monthly Viewership Section */
-    #monthly {
-      background: rgba(0,0,0,0.3);
-    }
-    #monthly .bar-chart {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      height: 250px;
-      padding: 0 20px;
-    }
-    #monthly .bar {
-      width: 18%;
-      background: linear-gradient(180deg, #8A2BE2, #591A91);
-      border-radius: 6px 6px 0 0;
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: transform 0.8s ease-out;
-      position: relative;
-    }
-    #monthly .bar:hover {
-      background: linear-gradient(180deg, #7A1BCC, #4A137A);
-    }
-    #monthly .bar span {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-8px);
-      background: rgba(0,0,0,0.6);
-      padding: 4px 6px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    #monthly .bar:hover span { opacity: 1; }
-
-    /* Genre Section */
-    #genres {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 40px;
-    }
-    .genres-list {
-      flex: 1;
-      gap: 20px;
-    }
-    .genre {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .genre-icon {
-      width: 32px;
-      height: 32px;
-      margin-right: 12px;
-      filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
-    }
-    .genre-bar {
-      flex: 1;
-      height: 12px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      position: relative;
-    }
-    .genre-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: 6px;
-      transition: width 1s ease-out;
-    }
-    .genre-label {
-      margin-left: 12px;
-      font-size: 0.9rem;
-      width: 60px;
-      text-align: right;
-    }
-
-    /* Statement & CTA */
-    .statement {
-      flex: 1;
-      color: #ccc;
-      font-size: 1.1rem;
-      line-height: 1.4;
-    }
-    .cta-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 14px 28px;
-      background: #8A2BE2;
-      border: none;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      text-decoration: none;
-      box-shadow: 0 0 16px rgba(138,43,226,0.8);
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .cta-btn:hover {
-      background: #7A1BCC;
-      transform: translateY(-3px);
-    }
-
-    /* Responsive */
-    @media(max-width: 768px) {
-      #genres { flex-direction: column; }
-      .metrics { flex-direction: column; }
-      #hero h1 { font-size: 2.4rem; }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>N8Wealth Content Branding</title>
+  <!-- Font Awesome for icons (CDN link) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Font (Poppins) for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Main CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- HERO SECTION -->
-  <section id="hero" class="container fade-in">
-    <h1>Where Content Becomes Culture.</h1>
-    <div class="chart-wrapper">
-      <!-- Insert animated line graph here -->
-      <canvas id="lineChart"></canvas>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">N8Wealth</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#work">My Work</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section: Title and Animated Line Graph -->
+  <header id="home" class="hero-section">
+    <h1 class="hero-title">Where Content Becomes Culture</h1>
+    <!-- Canvas for animated line graph -->
+    <canvas id="heroChart"></canvas>
+  </header>
+
+  <!-- Statistics and Graphs Section -->
+  <section class="stats-graphs-section">
+    <!-- Statistics Cards -->
+    <div class="stats-container fade-in">
+      <div class="stats-card">
+        <div class="stat-number">248M</div>
+        <div class="stat-label">Total Views</div>
+      </div>
+      <div class="stats-card">
+        <div class="stat-number">12.5M</div>
+        <div class="stat-label">Subscribers</div>
+      </div>
+      <div class="stats-card">
+        <div class="stat-number">18</div>
+        <div class="stat-label">Channels</div>
+      </div>
     </div>
-    <div class="metrics">
-      <div class="metric-card">
-        <h3>Total Views</h3>
-        <p>248M</p>
+    <!-- Graphs: Bar chart and Category breakdown -->
+    <div class="graphs-container fade-in">
+      <!-- Monthly Viewership Bar Chart -->
+      <div class="bar-chart-block">
+        <h3 class="graph-title">Monthly Viewership</h3>
+        <canvas id="barChart"></canvas>
       </div>
-      <div class="metric-card">
-        <h3>Total Subscribers</h3>
-        <p>12.5M</p>
-      </div>
-      <div class="metric-card">
-        <h3>Channels</h3>
-        <p>18</p>
+      <!-- Category Breakdown (horizontal bars) -->
+      <div class="categories-block">
+        <h3 class="graph-title">By Category</h3>
+        <div class="category">
+          <span class="category-label"><i class="fa fa-child"></i> Kids</span>
+          <div class="category-bar-container">
+            <div class="category-bar kids"></div>
+          </div>
+        </div>
+        <div class="category">
+          <span class="category-label"><i class="fa fa-video"></i> Documentary</span>
+          <div class="category-bar-container">
+            <div class="category-bar documentary"></div>
+          </div>
+        </div>
+        <div class="category">
+          <span class="category-label"><i class="fa fa-gamepad"></i> Gaming</span>
+          <div class="category-bar-container">
+            <div class="category-bar gaming"></div>
+          </div>
+        </div>
+        <div class="category">
+          <span class="category-label"><i class="fa fa-bolt"></i> Trending</span>
+          <div class="category-bar-container">
+            <div class="category-bar trending"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- MONTHLY VIEWERSHIP -->
-  <section id="monthly" class="container fade-in">
-    <h2>Monthly Viewership</h2>
-    <div class="bar-chart">
-      <!-- Example bars; heights set in JS -->
-      <div class="bar" data-value="15"><span>Nov: 15M</span></div>
-      <div class="bar" data-value="28"><span>Dec: 28M</span></div>
-      <div class="bar" data-value="40"><span>Jan: 40M</span></div>
-      <div class="bar" data-value="52"><span>Feb: 52M</span></div>
-      <div class="bar" data-value="65"><span>Mar: 65M</span></div>
+  <!-- Call-to-Action Section -->
+  <section class="cta-section fade-in">
+    <h2 class="cta-title">Elevate Your Brand</h2>
+    <button class="cta-button">Let's Collaborate</button>
+  </section>
+
+  <!-- Brand Collaboration Section -->
+  <section class="brand-collab-section" id="work">
+    <h2 class="section-title fade-in">Brand Collaboration</h2>
+    <p class="section-description fade-in">
+      We provide a one-step solution for your campaign, reaching millions of views. 
+      Contact us to tailor campaigns for YouTube, TikTok, Instagram, and Twitch.
+    </p>
+    <div class="features-container">
+      <div class="feature-box fade-in">
+        <div class="feature-icon"><i class="fa fa-globe"></i></div>
+        <h3 class="feature-title">Multi-Platform Campaigns</h3>
+        <p class="feature-text">
+          Tailored campaigns for YouTube, TikTok, Instagram, and Twitch to maximize reach.
+        </p>
+      </div>
+      <div class="feature-box fade-in">
+        <div class="feature-icon"><i class="fa fa-box-open"></i></div>
+        <h3 class="feature-title">Authentic Integrations</h3>
+        <p class="feature-text">
+          Seamless brand placements that feel natural and build trust with audiences.
+        </p>
+      </div>
+      <div class="feature-box fade-in">
+        <div class="feature-icon"><i class="fa fa-magic"></i></div>
+        <h3 class="feature-title">Creative Storytelling</h3>
+        <p class="feature-text">
+          High-impact narratives that connect emotionally and inspire action.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- VIEWERSHIP BY GENRE / STATEMENT & CTA -->
-  <section id="genres" class="container fade-in">
-    <div class="genres-list">
-      <div class="genre">
-        <img class="genre-icon" src="icons/kids.svg" alt="Kids" />
-        <div class="genre-bar"><div class="genre-fill" style="background:#1E90FF;"></div></div>
-        <div class="genre-label">Kids</div>
+  <!-- Success Stories Section -->
+  <section class="success-section" id="testimonials">
+    <h2 class="section-title fade-in">Brand Success Stories</h2>
+    <div class="stories-container">
+      <div class="story-box fade-in">
+        <h3 class="story-title">Success Story 1</h3>
+        <p class="story-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
-      <div class="genre">
-        <img class="genre-icon" src="icons/documentary.svg" alt="Documentary" />
-        <div class="genre-bar"><div class="genre-fill" style="background:#87CEFA;"></div></div>
-        <div class="genre-label">Doc</div>
+      <div class="story-box fade-in">
+        <h3 class="story-title">Success Story 2</h3>
+        <p class="story-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
-      <div class="genre">
-        <img class="genre-icon" src="icons/gaming.svg" alt="Gaming" />
-        <div class="genre-bar"><div class="genre-fill" style="background:#8A2BE2;"></div></div>
-        <div class="genre-label">Gaming</div>
+      <div class="story-box fade-in">
+        <h3 class="story-title">Success Story 3</h3>
+        <p class="story-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
-      <div class="genre">
-        <img class="genre-icon" src="icons/trending.svg" alt="Trending" />
-        <div class="genre-bar"><div class="genre-fill" style="background:#FF8C00;"></div></div>
-        <div class="genre-label">Trending</div>
-      </div>
-    </div>
-    <div class="statement">
-      <p>We help content scale. Across genres. Across platforms. Across the world.</p>
-      <a href="#contact" class="cta-btn">Let’s Collaborate</a>
     </div>
   </section>
 
-  <!-- JavaScript for Animations & Charts -->
-  <script>
-    // Intersection Observer to reveal sections
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('in-view');
-      });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Animate Monthly Bars
-    const bars = document.querySelectorAll('#monthly .bar');
-    bars.forEach((bar, i) => {
-      observer.observe(bar);
-      bar.addEventListener('mouseenter', ()=> {});
-      observer.observe(bar);
-    });
-    bars.forEach((bar, i) => {
-      observer.observe(bar);
-      observer.observe(bar);
-    });
-    observer.disconnect(); // cleaned up
-
-    // Resize & Animate Bars on Scroll
-    const barObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bar = entry.target;
-          const value = bar.dataset.value;
-          bar.style.transform = `scaleY(${value/100})`;
-        }
-      });
-    }, { threshold: 0.3 });
-
-    bars.forEach(bar => barObserver.observe(bar));
-
-    // Animate Genre Bars
-    const fills = document.querySelectorAll('.genre-fill');
-    const genreObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const fill = entry.target.querySelector('.genre-fill') || entry.target;
-          // Example percentages; adjust as needed
-          const widths = { Kids: 70, Doc: 55, Gaming: 60, Trending: 80 };
-          const label = entry.target.querySelector('.genre-label').innerText;
-          fill.style.width = widths[label] + '%';
-        }
-      });
-    }, { threshold: 0.3 });
-
-    document.querySelectorAll('.genre').forEach(g => genreObserver.observe(g));
-
-    // Initialize Line Chart (using Chart.js)
-    // Include <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> before this script
-    const ctx = document.getElementById('lineChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Nov','Dec','Jan','Feb','Mar'],
-        datasets: [{
-          data: [15,28,40,52,65],
-          borderColor: '#8A2BE2',
-          borderWidth: 3,
-          fill: false,
-          tension: 0.4,
-          pointRadius: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        animation: { duration: 1500, easing: 'easeOutQuart' },
-        scales: { x: { grid: { display: false }, ticks: { color: '#ccc' } },
-                  y: { display: false } },
-        plugins: { legend: { display: false } }
-      }
-    });
-  </script>
+  <!-- JavaScript includes (Chart.js library and custom script) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
