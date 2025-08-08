@@ -110,7 +110,14 @@
     .bar-wrap{display:flex; flex-direction:column; align-items:center; flex:1}
 
     /* Category bars */
-    .cat{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:12px; margin:18px 0}
+    .cat{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px; margin:18px 0}
+    .label-text{display:flex; align-items:center; gap:8px}
+    .lead-icon, .label-icon{width:18px; height:18px; display:inline-block; background:linear-gradient(90deg, var(--purple-2), var(--magenta), var(--orange)); border:1px solid var(--border-strong); box-shadow:inset 0 0 8px rgba(0,0,0,.25), 0 1px 8px rgba(165,92,255,.35)}
+    .lead-icon.circle, .label-icon.circle{border-radius:50%}
+    .lead-icon.square, .label-icon.square{border-radius:4px}
+    .lead-icon.diamond, .label-icon.diamond{border-radius:4px; transform:rotate(45deg)}
+    .lead-icon.bolt, .label-icon.bolt{background:none;}
+    .label-text small{margin-left:6px}
     .dot{width:18px; height:18px; border-radius:50%; border:1px solid var(--border-strong); box-shadow:inset 0 0 8px rgba(159,99,255,.25); transition:transform .4s ease, opacity .35s ease}
     .track{height:12px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid var(--border); position:relative; overflow:hidden}
     .fill{position:absolute; inset:0 auto 0 0; width:0%; border-radius:inherit; background:linear-gradient(90deg, var(--purple-2), var(--magenta), var(--orange))}
@@ -252,9 +259,48 @@
         <div class="card">
           <h3 class="card-title">Genres</h3>
           <div class="cat">
-            <div class="dot" style="background:#67b2ff"></div>
-            <small>Kids</small>
-            <div class="track">$1</div>
+            <span class="lead-icon bolt">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="gradBolt" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#6a2cff"/>
+                    <stop offset="60%" stop-color="#ff36c2"/>
+                    <stop offset="100%" stop-color="#ff9b3d"/>
+                  </linearGradient>
+                </defs>
+                <path d="M13 2L6 13h5l-1 9 7-11h-5l1-9z" fill="url(#gradBolt)" stroke="rgba(255,255,255,.75)" stroke-width=".6"/>
+              </svg>
+            </span>
+            <div class="track"><div class="fill" style="--to:92%">
+              <span class="gicon trend">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 16l6-6 4 4 6-6"/>
+                  <path d="M18 8h4v4"/>
+                </svg>
+              </span>
+            </div></div>
+            <div class="label-text"><span class="label-icon bolt">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="gradBolt2" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#6a2cff"/>
+                    <stop offset="60%" stop-color="#ff36c2"/>
+                    <stop offset="100%" stop-color="#ff9b3d"/>
+                  </linearGradient>
+                </defs>
+                <path d="M13 2L6 13h5l-1 9 7-11h-5l1-9z" fill="url(#gradBolt2)"/>
+              </svg>
+            </span><small>Trending</small></div>
+          </div>/div>
+          </div><div class="label-text"><span class="label-icon square"></span><small>Documentary</small></div>
+          </div>"12" cy="12" r="8"/>
+                  <path d="M8.5 10.5h0M15.5 10.5h0"/>
+                  <path d="M8.5 14c1.2 1 2.6 1.5 3.5 1.5s2.3-.5 3.5-1.5"/>
+                </svg>
+              </span>
+            </div></div>
+            <div class="label-text"><span class="label-icon circle"></span><small>Kids</small></div>
+          </div>
           </div>
           <div class="cat">
             <div class="dot" style="background:#8be3ff"></div>
