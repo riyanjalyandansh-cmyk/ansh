@@ -27,6 +27,7 @@
       --radius-xl: 24px;
       --radius-lg: 18px;
       --radius-pill: 999px;
+      --logo-size: 36px;
       --border: rgba(255,255,255,.08);
       --border-strong: rgba(255,255,255,.15);
     }
@@ -191,7 +192,9 @@
     .social{display:flex; gap:12px; justify-content:center; margin-bottom:10px}
     .s-btn{width:42px; height:42px; border-radius:999px; display:grid; place-items:center; color:#f0eaff; background:rgba(255,255,255,.04); border:1px solid var(--border); box-shadow:inset 0 0 0 1px rgba(255,255,255,.06), 0 8px 24px rgba(149,84,255,.18); transition:transform .15s ease, box-shadow .2s ease}
     .s-btn:hover{transform:translateY(-2px); box-shadow:0 0 0 6px rgba(149,84,255,.15), 0 12px 36px rgba(149,84,255,.25)}
-  .brand img.logo{height:28px; width:auto; display:block}
+  .logo-wrap{width:var(--logo-size); height:var(--logo-size); border-radius:10px; overflow:hidden; display:block; background:radial-gradient(60% 60% at 30% 30%, #2a1a55, #140c29); border:1px solid var(--border-strong); box-shadow:inset 0 0 12px rgba(159,99,255,.25), 0 4px 16px rgba(149,84,255,.18)}
+  .brand img.logo{width:100%; height:100%; object-fit:contain; display:block; background:#0d0a18}
+  @media (max-width: 580px){ .logo-wrap{width:28px; height:28px} }
   </style>
 </head>
 <body>
@@ -200,7 +203,7 @@
     <nav>
       <div class="nav-shell">
         <div class="brand">
-          <img class="logo" src="https://i.ibb.co/TMBrP6s6/razebait.png" alt="Razebait logo" />
+          <span class="logo-wrap"><img class="logo" src="https://i.ibb.co/TMBrP6s6/razebait.png" alt="Razebait logo" /></span>
           <span>Razebait</span>
         </div>
         <a class="nav-cta btn-sm" href="mailto:hello@n8wealth.com?subject=Collaboration%20Inquiry&body=Hi%20Razebait%2C%0AI'd%20like%20to%20collaborate.%20Please%20reach%20out!">LET'S COLLABORATE</a>
