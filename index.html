@@ -1,36 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Website</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RNA Media — Multi-Genre Digital Media Powerhouse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Simple Website</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <section id="about">
-        <h2>About</h2>
-        <p>This is a simple website made with HTML and CSS.</p>
-    </section>
-    <section id="services">
-        <h2>Services</h2>
-        <p>We provide web development services.</p>
-    </section>
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: contact@example.com</p>
-    </section>
-    <footer>
-        <p>&copy; 2025 My Simple Website</p>
-    </footer>
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-brand">
+        <img src="assets/images/rna.jpg" alt="RNA Media Logo" class="logo">
+        <div class="brand-name">RNA Media</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="press.html">Press</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Partner With Us</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Multi-Genre Digital Media Powerhouse</div>
+        <h1>We Build Viral Content Brands</h1>
+        <p class="hero-subtitle">
+          RNA Media creates, operates, and accelerates diverse digital media brands across the fastest-growing genres — from kids entertainment and gaming to documentaries and viral content.
+        </p>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-number">75M+</span><span class="stat-label">Network Views</span></div>
+          <div class="stat"><span class="stat-number">12M+</span><span class="stat-label">Subscribers</span></div>
+          <div class="stat"><span class="stat-number">6</span><span class="stat-label">Active Brands</span></div>
+          <div class="stat"><span class="stat-number">4</span><span class="stat-label">Content Genres</span></div>
+        </div>
+        <a href="#partnerships" class="hero-cta">Explore Partnerships</a>
+        <a href="about-us.html" class="hero-cta-secondary">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENRE SHOWCASE -->
+  <section id="portfolio" class="genres">
+    <!-- (Your existing genre cards section here) -->
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="capabilities">
+    <!-- (Existing capabilities section) -->
+  </section>
+
+  <!-- UPDATED STRATEGIC PARTNERSHIPS SECTION -->
+  <section id="partnerships" class="partnerships">
+    <div class="container">
+      <h2 class="section-title">Strategic Partnerships</h2>
+      <p class="section-subtitle">
+        We collaborate with brands, platforms, and creators to build innovative campaigns tailored to diverse audiences across our network.
+      </p>
+      <div class="partnerships-grid">
+        <div class="partnership-card cyan">
+          <h3>Brand Collaborations</h3>
+          <p>Custom branded content integration across our diverse portfolio, reaching millions of engaged viewers worldwide.</p>
+        </div>
+        <div class="partnership-card magenta">
+          <h3>Platform Partnerships</h3>
+          <p>Strategic relationships with major platforms to maximize reach, boost monetization, and secure promotional opportunities.</p>
+        </div>
+        <div class="partnership-card green">
+          <h3>Creator Network</h3>
+          <p>We partner with top creators to provide resources, grow audiences, and maximize revenue potential.</p>
+        </div>
+        <div class="partnership-card cyan">
+          <h3>Licensing & IP</h3>
+          <p>Content licensing, IP development partnerships, and international adaptation opportunities for our original content.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <p>&copy; 2025 RNA Media. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
